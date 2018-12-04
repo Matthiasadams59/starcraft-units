@@ -11,7 +11,31 @@
             <div class="row">
                 <h1>Starcraft Units</h1>
             </div>
-            <!-- This is where you will put your HTML... -->
+            <div class="row">
+                <div class="col-md-6" id="unitRecap">
+
+                </div>
+                <div class="col-md-6">
+                    <form id="unitForm">
+                        <div class="form-group">
+                            <input type="text" id="unitNameField" placeholder="Your unit's name..." required />
+                        </div>
+                        <div class="form-group">
+                            <label for="unitTypeField">Unit type</label>
+                            <select id="unitTypeField" required>
+                                <option selected>Marine</option>
+                                <option>Siege Tank</option>
+                                <option>Valkyrie</option>
+                            </select>
+                        </div>
+                        <div id="siegeTankMode" class="form-group" hidden>
+                            <input type="radio" name="unitSiegeMode" id="siegeMode" value="Siege Mode"> <label for="siegeMode">Siege Mode</label>
+                            <input type="radio" name="unitSiegeMode" id="travelMode" value="Travel Mode"> <label for="travelMode">Travel Mode</label>
+                        </div>
+                        <button type="submit" class="col-md-3 btn btn-success">Create unit</button>
+                    </form>
+                </div>
+            </div>
         </div>
         <script type="text/javascript" src="/build/app.js"></script>
     </body>

@@ -5,31 +5,49 @@ import {Valkyrie} from './objects/Valkyrie'
 
 alert('Good luck, Commander!')
 let idCounter = 0
-let  battlefield = []
 
+const unitForm = document.querySelector("#unitForm")
+const unitRecap = document.querySelector("#unitRecap")
+const unitType = document.querySelector("#unitTypeField")
 
-const addUnit = () => {
+unitForm.addEventListener("submit", (event) => {
+	event.preventDefault()
+	const data = new FormData(unitForm)
 	const name = document.getElementById("unitNameField").value
-	const type = document.getElementById("unitTypeField").value
-	const unit = null
-	const audio = null
+	const type = unitType.value
+	let unit = null
+	let audio = null
 	switch (type) {
 		case "Marine":
 			unit = new Marine(name, idCounter)
-			audio = new Audio('../resources/sound/MarineReady.oga');
+			audio = new Audio('../resources/sound/MarineReady.oga')
 			break
 		case "Siege Tank":
-			const siegeMode = document.getElementById("unitSiegeMode")
+			const siegeMode = document.querySelector('input[name="unitSiegeMode"]:checked').value
 			unit = new SiegeTank(name, idCounter, siegeMode)
-			audio = new Audio('../resources/sound/SiegeTankReady.oga');
+			audio = new Audio('../resources/sound/SiegeTankReady.oga')
 			break
 		case "Valkyrie":
 			unit = new Valkyrie(name, idCounter)
-			audio = new Audio('../resources/sound/ValkyrieReady.oga');
+			audio = new Audio('../resources/sound/ValkyrieReady.oga')
 			break
 	}
-	audio.play();
-	battlefield.add(unit)
+	audio.play()
 	idCounter++
-	return unit
+	displayUnit(unit)
+})
+
+unitType.addEventListener("change", () => {
+	const siegeMode = document.querySelector("#siegeTankMode")
+	if(unitType.value === "Siege Tank") {
+		siegeMode.removeAttribute("hidden")
+		siegeMode.firstElementChild.required = true
+	} else {
+		siegeMode.setAttribute("hidden", true)
+		siegeMode.firstElementChild.required = false
+	}
+})
+
+const displayUnit = (unit) => {
+	document.getElementById("unitRecap").innerHTML +=unit.asHTMLRow()
 }
