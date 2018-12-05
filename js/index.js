@@ -20,19 +20,16 @@ unitForm.addEventListener("submit", (event) => {
 	switch (type) {
 		case "Marine":
 			unit = new Marine(name, idCounter)
-			audio = new Audio('../resources/sound/MarineReady.oga')
 			break
 		case "Siege Tank":
 			const siegeMode = document.querySelector('input[name="unitSiegeMode"]:checked').value
 			unit = new SiegeTank(name, idCounter, siegeMode)
-			audio = new Audio('../resources/sound/SiegeTankReady.oga')
 			break
 		case "Valkyrie":
 			unit = new Valkyrie(name, idCounter)
-			audio = new Audio('../resources/sound/ValkyrieReady.oga')
 			break
 	}
-	audio.play()
+	unit.constructor.playReadySound()
 	idCounter++
 	displayUnit(unit)
 })
@@ -50,4 +47,19 @@ unitType.addEventListener("change", () => {
 
 const displayUnit = (unit) => {
 	document.getElementById("unitRecap").innerHTML +=unit.asHTMLRow()
+}
+
+const removeUnit = (element) => {
+	switch (element.parentElement.getAttribute("data-unitType")) {
+		case "Marine":
+			Marine.playDeathSound()
+			break
+		case "Siege Tank":
+			SiegeTank.playDeathSound()
+			break
+		case "Valkyrie":
+			Valkyrie.playDeathSound()
+			break
+	}
+	element.parentElement.remove()
 }

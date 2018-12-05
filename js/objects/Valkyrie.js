@@ -5,4 +5,12 @@ export class Valkyrie extends Unit {
 		super(name, id)
 		this.type = "Valkyrie"
 	}
+
+	static playReadySound() {
+		new Audio('../../resources/sound/ValkyrieReady.oga').play()
+	}
+
+	static playDeathSound() {
+		new Audio(`../../resources/sound/ValkyrieDeath.oga`).play()
+	}
 }

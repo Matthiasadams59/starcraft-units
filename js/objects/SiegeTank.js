@@ -8,6 +8,14 @@ export class SiegeTank extends Unit {
 	}
 
 	asHTMLRow() {
-		return `<div class='row'>${this.type} #${this.id}: ${this.name} (${this.siegeMode})</div>`
+		return `<div class='row' data-unitType='${this.type}'>${this.type} #${this.id}: ${this.name} (${this.siegeMode})</div>`
+	}
+
+	static playReadySound() {
+		new Audio('../../resources/sound/SiegeTankReady.oga').play()
+	}
+
+	static playDeathSound() {
+		new Audio(`../../resources/sound/SiegeTankDeath.oga`).play()
 	}
 }

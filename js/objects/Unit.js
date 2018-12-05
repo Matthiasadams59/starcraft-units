@@ -6,6 +6,6 @@ export class Unit {
 	}
 
 	asHTMLRow() {
-		return `<div class='row'>${this.type} #${this.id}: ${this.name}</div>`
+		return `<div class='row' data-unitType='${this.type}'>${this.type} #${this.id}: ${this.name}</div>`
 	}
 }
