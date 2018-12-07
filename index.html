@@ -13,24 +13,27 @@
             </div>
             <div class="row">
                 <div class="col-md-6" id="unitRecap">
+                    <h2>Unit recap:</h2>
 
                 </div>
                 <div class="col-md-6">
+                    <h2>Recruit a new unit:</h2>
                     <form id="unitForm">
                         <div class="form-group">
-                            <input type="text" id="unitNameField" placeholder="Your unit's name..." required />
+                                <label for="unitNameField">Unit name</label>
+                            <input type="text" id="unitNameField" class="form-control" placeholder="Your unit's name..." required />
                         </div>
                         <div class="form-group">
                             <label for="unitTypeField">Unit type</label>
-                            <select id="unitTypeField" required>
+                            <select id="unitTypeField" class="form-control" required>
                                 <option selected>Marine</option>
                                 <option>Siege Tank</option>
                                 <option>Valkyrie</option>
                             </select>
                         </div>
-                        <div id="siegeTankMode" class="form-group" hidden>
-                            <input type="radio" name="unitSiegeMode" id="siegeMode" value="Siege Mode"> <label for="siegeMode">Siege Mode</label>
-                            <input type="radio" name="unitSiegeMode" id="travelMode" value="Travel Mode"> <label for="travelMode">Travel Mode</label>
+                        <div id="siegeTankMode" class="form-check" hidden>
+                            <input type="radio" name="unitSiegeMode" id="siegeMode" class="form-check-input" value="Siege Mode"> <label for="siegeMode">Siege Mode</label>
+                            <input type="radio" name="unitSiegeMode" id="travelMode" class="form-check-input" value="Travel Mode"> <label for="travelMode">Travel Mode</label>
                         </div>
                         <button type="submit" class="col-md-3 btn btn-success">Create unit</button>
                     </form>

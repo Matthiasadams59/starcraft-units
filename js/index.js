@@ -1,42 +1,45 @@
-import {Unit} from './objects/Unit'
-import {Marine} from './objects/Marine'
-import {SiegeTank} from './objects/SiegeTank'
-import {Valkyrie} from './objects/Valkyrie'
+import { Unit } from './objects/Unit'
+import { Marine } from './objects/Marine'
+import { SiegeTank } from './objects/SiegeTank'
+import { Valkyrie } from './objects/Valkyrie'
 
 alert('Good luck, Commander!')
-let idCounter = 0
+let usedIds = []
 
 const unitForm = document.querySelector("#unitForm")
-const unitRecap = document.querySelector("#unitRecap")
 const unitType = document.querySelector("#unitTypeField")
+const unitRecap = document.querySelector("#unitRecap")
 
 unitForm.addEventListener("submit", (event) => {
 	event.preventDefault()
-	const data = new FormData(unitForm)
 	const name = document.getElementById("unitNameField").value
 	const type = unitType.value
+	const id = generateId()
 	let unit = null
-	let audio = null
-	switch (type) {
-		case "Marine":
-			unit = new Marine(name, idCounter)
-			break
-		case "Siege Tank":
-			const siegeMode = document.querySelector('input[name="unitSiegeMode"]:checked').value
-			unit = new SiegeTank(name, idCounter, siegeMode)
-			break
-		case "Valkyrie":
-			unit = new Valkyrie(name, idCounter)
-			break
+	if (id !== undefined) {
+		switch (type) {
+			case "Marine":
+				unit = new Marine(name, id)
+				break
+			case "Siege Tank":
+				const siegeMode = document.querySelector('input[name="unitSiegeMode"]:checked').value
+				unit = new SiegeTank(name, id, siegeMode)
+				break
+			case "Valkyrie":
+				unit = new Valkyrie(name, id)
+				break
+		}
+		usedIds.push(id)
+		unit.constructor.playReadySound()
+		displayUnit(unit)
+	} else {
+		alert("Commander, you can't train more units!")
 	}
-	unit.constructor.playReadySound()
-	idCounter++
-	displayUnit(unit)
 })
 
 unitType.addEventListener("change", () => {
 	const siegeMode = document.querySelector("#siegeTankMode")
-	if(unitType.value === "Siege Tank") {
+	if (unitType.value === "Siege Tank") {
 		siegeMode.removeAttribute("hidden")
 		siegeMode.firstElementChild.required = true
 	} else {
@@ -46,20 +49,43 @@ unitType.addEventListener("change", () => {
 })
 
 const displayUnit = (unit) => {
-	document.getElementById("unitRecap").innerHTML +=unit.asHTMLRow()
+	unitRecap.innerHTML += unit.asHTMLRow()
 }
 
-const removeUnit = (element) => {
-	switch (element.parentElement.getAttribute("data-unitType")) {
-		case "Marine":
-			Marine.playDeathSound()
-			break
-		case "Siege Tank":
-			SiegeTank.playDeathSound()
-			break
-		case "Valkyrie":
-			Valkyrie.playDeathSound()
-			break
+const confirmRemoval = (unitName, unitType) => {
+	if (confirm(`Are you sure you want to remove the ${unitType} ${unitName}?`)) {
+		if (unitType !== "Valkyrie") {
+			return true
+		}
+		return confirm(`Commander, without meaning any disrespect to you, this choice seems a bit hazardous!\n\nAre you really certain you want to destroy the Valkyrie ${unitName}?`)
 	}
-	element.parentElement.remove()
+}
+
+const generateId = () => {
+	for (let i = 0; i <= 99999; i++) {
+		if (!usedIds.includes(i)) {
+			return i
+		}
+	}
+}
+
+window.removeUnit = (context) => {
+	const unitId = context.getAttribute("data-unitId")
+	const unitName = context.getAttribute("data-unitName")
+	const unitType = context.getAttribute("data-unitType")
+	if (confirmRemoval(unitName, unitType)) {
+		switch (unitType) {
+			case "Marine":
+				Marine.playDeathSound()
+				break
+			case "Siege Tank":
+				SiegeTank.playDeathSound()
+				break
+			case "Valkyrie":
+				Valkyrie.playDeathSound()
+				break
+		}
+		usedIds.splice(usedIds.indexOf(parseInt(unitId, 10)), 1)
+		context.remove()
+	}
 }
