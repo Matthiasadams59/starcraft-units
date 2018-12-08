@@ -3,7 +3,6 @@ TP on modern Web basics (HTML, CSS and especially JavaScript but also npm comman
 
 ## Deployment
 
-* Maven
 At the root the project :
 ```
 npm install
