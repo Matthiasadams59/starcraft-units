@@ -1,45 +1,94 @@
 <!doctype html>
 <html>
-    <head>
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-        <title>Starcrat Units</title>
-        <link href="./css/site.css" rel="stylesheet">
-        <link href="./css/bootstrap.min.css" rel="stylesheet">
-    </head>
-    <body>
-        <div class="container">
-            <div class="row">
-                <h1>Starcraft Units</h1>
-            </div>
-            <div class="row">
-                <div class="col-md-6" id="unitRecap">
-                    <h2>Unit recap:</h2>
 
-                </div>
-                <div class="col-md-6">
-                    <h2>Recruit a new unit:</h2>
-                    <form id="unitForm">
-                        <div class="form-group">
-                                <label for="unitNameField">Unit name</label>
-                            <input type="text" id="unitNameField" class="form-control" placeholder="Your unit's name..." required />
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>Starcrat Units</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/site.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container container-wider">
+        <div class="row">
+            <img src="resources/images/starcraft_logo.png" class="banner">
+        </div>
+        <div class="row">
+            <div class="col-md-4 subPage" id="unitRecap">
+                <h2>Unit recap:</h2>
+
+            </div>
+            <div class="col-md-4 subPage">
+                <h2>Recruit a new unit:</h2>
+                <form id="unitForm">
+                    <div class="form-group">
+                        <label for="unitNameField">Unit name</label>
+                        <input type="text" id="unitNameField" class="form-control" placeholder="Your unit's name..."
+                            required />
+                    </div>
+                    <div class="form-group">
+                        <label for="unitTypeField">Unit type</label>
+                        <select id="unitTypeField" class="form-control" required>
+                            <option selected>Marine</option>
+                            <option>Siege Tank</option>
+                            <option>Valkyrie</option>
+                        </select>
+                    </div>
+                    <div id="siegeTankMode" class="form-group corrected-form-group" hidden>
+                        <div class="form-check">
+                            <input type="radio" name="unitSiegeMode" id="siegeMode" class="form-check-input" value="Siege Mode">
+                            <label for="siegeMode">Siege Mode</label>
                         </div>
-                        <div class="form-group">
-                            <label for="unitTypeField">Unit type</label>
-                            <select id="unitTypeField" class="form-control" required>
-                                <option selected>Marine</option>
-                                <option>Siege Tank</option>
-                                <option>Valkyrie</option>
-                            </select>
+                        <div class="form-check">
+                            <input type="radio" name="unitSiegeMode" id="travelMode" class="form-check-input" value="Travel Mode">
+                            <label for="travelMode">Travel Mode</label>
                         </div>
-                        <div id="siegeTankMode" class="form-check" hidden>
-                            <input type="radio" name="unitSiegeMode" id="siegeMode" class="form-check-input" value="Siege Mode"> <label for="siegeMode">Siege Mode</label>
-                            <input type="radio" name="unitSiegeMode" id="travelMode" class="form-check-input" value="Travel Mode"> <label for="travelMode">Travel Mode</label>
-                        </div>
+                    </div>
+                    <div class="row justify-content-center">
                         <button type="submit" class="col-md-3 btn btn-success">Create unit</button>
-                    </form>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4 subPage">
+                <h2>Unit data:</h2>
+                <div class="row unitDataRow">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-4">
+                                Unit id:
+                            </div>
+                            <div class="col-md-8" id="unitDataId">
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Unit name:
+                            </div>
+                            <div class="col-md-8" id="unitDataName">
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Unit type:
+                            </div>
+                            <div class="col-md-8" id="unitDataType">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <img class="portrait" id="unitDataPortrait">
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <button class="col-md-3 btn btn-danger" id="deleteBtn" disabled>Delete unit</button>
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="/build/app.js"></script>
-    </body>
+    </div>
+    <script type="text/javascript" src="/build/app.js"></script>
+</body>
+
 </html>

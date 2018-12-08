@@ -6,6 +6,8 @@ export class Unit {
 	}
 
 	asHTMLRow() {
-		return `<div class='row' data-unitName='${this.name}' data-unitType='${this.type}' data-unitId='${this.id}' onclick='removeUnit(this)'>${this.type} #${this.id}: ${this.name}</div>`
+		return `<div class='row unit-row' data-unitName='${this.name}' data-unitType='${this.type}' data-unitId='${this.id}' onclick='selectUnit(this)'>
+			<span class="col-md-10">${this.type} #${this.id}: ${this.name}</span>
+		</div>`
 	}
 }

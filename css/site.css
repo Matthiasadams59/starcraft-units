@@ -1,2 +1,37 @@
-/* This is where you will put your own CSS. */
-/* DO NOT MODIFY bootstrap.min.css !!! */
+.portrait {
+    max-width:100%;
+}
+
+.unit-row:hover {
+    background-color: lightgray;
+}
+
+.banner {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.subPage {
+    border: 2px;
+    border-style: solid;
+    border-radius: 5px;
+    background-color: white;
+    padding: 5px 15px;
+}
+
+.container-wider {
+    margin: 0 10%;
+    width: 80%;
+}
+
+.corrected-form-group {
+    padding-left: 20px;
+}
+
+.unitDataRow {
+    min-height: 180px;
+}
+
+body {
+    background-color: darkblue;
+}

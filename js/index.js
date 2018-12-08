@@ -5,10 +5,17 @@ import { Valkyrie } from './objects/Valkyrie'
 
 alert('Good luck, Commander!')
 let usedIds = []
+let selectedUnitContext = null
 
 const unitForm = document.querySelector("#unitForm")
 const unitType = document.querySelector("#unitTypeField")
 const unitRecap = document.querySelector("#unitRecap")
+
+const unitDataId = document.querySelector("#unitDataId")
+const unitDataName = document.querySelector("#unitDataName")
+const unitDataType = document.querySelector("#unitDataType")
+const unitDataPortrait = document.querySelector("#unitDataPortrait")
+const deleteBtn = document.querySelector("#deleteBtn")
 
 unitForm.addEventListener("submit", (event) => {
 	event.preventDefault()
@@ -48,17 +55,38 @@ unitType.addEventListener("change", () => {
 	}
 })
 
+deleteBtn.addEventListener("click", () => {
+	const unitId = selectedUnitContext.getAttribute("data-unitId")
+	const unitName = selectedUnitContext.getAttribute("data-unitName")
+	const unitType = selectedUnitContext.getAttribute("data-unitType")
+	if (confirmRemoval(unitName, unitType)) {
+		switch (unitType) {
+			case "Marine":
+				Marine.playDeathSound()
+				break
+			case "Siege Tank":
+				SiegeTank.playDeathSound()
+				break
+			case "Valkyrie":
+				Valkyrie.playDeathSound()
+				break
+		}
+		usedIds.splice(usedIds.indexOf(parseInt(unitId, 10)), 1)
+		selectedUnitContext.remove()
+		selectedUnitContext = null
+		clearUnitData()
+	}
+})
+
 const displayUnit = (unit) => {
 	unitRecap.innerHTML += unit.asHTMLRow()
 }
 
 const confirmRemoval = (unitName, unitType) => {
-	if (confirm(`Are you sure you want to remove the ${unitType} ${unitName}?`)) {
-		if (unitType !== "Valkyrie") {
-			return true
-		}
-		return confirm(`Commander, without meaning any disrespect to you, this choice seems a bit hazardous!\n\nAre you really certain you want to destroy the Valkyrie ${unitName}?`)
+	if (unitType !== "Valkyrie") {
+		return true
 	}
+	return confirm(`Commander, without meaning any disrespect to you, this choice seems a bit hazardous!\n\nAre you really certain you want to destroy the Valkyrie ${unitName}?`)
 }
 
 const generateId = () => {
@@ -67,6 +95,27 @@ const generateId = () => {
 			return i
 		}
 	}
+}
+
+const clearUnitData = () => {
+	unitDataId.innerHTML = ""
+	unitDataName.innerHTML = ""
+	unitDataType.innerHTML = ""
+	unitDataPortrait.setAttribute("src", "")
+	deleteBtn.setAttribute("disabled", true)
+}
+
+window.selectUnit = (context) => {
+	selectedUnitContext = context
+	const unitId = selectedUnitContext.getAttribute("data-unitId")
+	const unitName = selectedUnitContext.getAttribute("data-unitName")
+	const unitType = selectedUnitContext.getAttribute("data-unitType")
+
+	unitDataId.innerHTML = unitId
+	unitDataName.innerHTML = unitName
+	unitDataType.innerHTML = unitType
+	unitDataPortrait.setAttribute("src", `../resources/images/${unitType}Portrait.gif`)
+	deleteBtn.removeAttribute("disabled")
 }
 
 window.removeUnit = (context) => {
