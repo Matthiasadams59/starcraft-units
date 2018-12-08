@@ -27,5 +27,5 @@ The project will start on localhost:8080
 
 ## Author
 
-William Aboucaya
-Ali Taïga Matthias-Adams  
+William Aboucaya  
+Ali Taïga Matthias-Adams
