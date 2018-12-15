@@ -3,7 +3,7 @@ TP on modern Web basics (HTML, CSS and especially JavaScript but also npm comman
 
 ## Deployment
 
-At the root the project :
+At the root of the project :
 ```
 npm install
 ```
